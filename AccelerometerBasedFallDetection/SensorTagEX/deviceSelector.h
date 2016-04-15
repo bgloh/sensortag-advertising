@@ -16,6 +16,7 @@
 @property (strong,nonatomic) CBCentralManager *m;
 @property                    int16_t           i;  // counting index
 @property                    float           accX,accY,accZ; // advertisement acceleration data
+@property                    NSNumber           *rssi;       // RSSI value
 @property (strong,nonatomic) NSMutableArray *nDevices;
 @property (strong,nonatomic) NSMutableArray *sensorTags;
 @property (strong,nonatomic) NSMutableArray *serviceArray;

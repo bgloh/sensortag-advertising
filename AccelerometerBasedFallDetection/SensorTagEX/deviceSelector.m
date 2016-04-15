@@ -16,7 +16,7 @@
 @end
 
 @implementation deviceSelector
-@synthesize m,nDevices,sensorTags,i, accX, accY, accZ;
+@synthesize m,nDevices,sensorTags,i, accX, accY, accZ, rssi;
 @synthesize serviceArray ; //added code, array to store services to connect
 
 
@@ -98,7 +98,7 @@
     
     // If periperal is SensorTag2.0, display manufacture-specific advertisement data in the detail text
     if([p.name isEqualToString:@"SensorTag 2.0"]) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"accZ:%1.1fG",self.accZ];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"accZ:%1.1fG RSSI:%@dB",self.accZ,self.rssi];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -194,8 +194,10 @@
         int16_t rawAccZ = (scratchVal[9] & 0xff) | ((scratchVal[10] << 8) & 0xff00);
         uint8_t accRange = 4; // 4G range
         self.accZ = (((float)rawAccZ * 1.0) / ( 32767 / accRange ));
+        self.rssi = RSSI;                   // RSSI value
          NSLog(@"value: %1.1f",self.accZ);
         [self.tableView reloadData];
+        NSLog(@"RSSI Requested: %@", RSSI); // RSSI value
     }
 }
 
